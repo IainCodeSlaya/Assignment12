@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PetDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Pet">
+          <Key>
+            <PropertyRef Name="Pet_ID" />
+          </Key>
+          <Property Name="Pet_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Pet_Type_ID" Type="int" />
+          <Property Name="Pet_Price" Type="float" />
+          <Property Name="Pet_Quantitiy" Type="int" />
+        </EntityType>
+        <EntityType Name="Pet_Type">
+          <Key>
+            <PropertyRef Name="Pet_Type_ID" />
+          </Key>
+          <Property Name="Pet_Type_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Pet_Type" Type="varchar" MaxLength="32" />
+        </EntityType>
+        <EntityType Name="Sale_Line_Pet">
+          <Key>
+            <PropertyRef Name="Pet_ID" />
+            <PropertyRef Name="Sale_ID" />
+          </Key>
+          <Property Name="Pet_ID" Type="int" Nullable="false" />
+          <Property Name="Sale_ID" Type="int" Nullable="false" />
+          <Property Name="Pet_Sale_Q" Type="int" />
+        </EntityType>
+        <EntityType Name="Sale_Pet">
+          <Key>
+            <PropertyRef Name="Sale_ID" />
+          </Key>
+          <Property Name="Sale_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Sale_Amount" Type="float" />
+        </EntityType>
+        <Association Name="FK__Pet__Pet_Type_ID__1273C1CD">
+          <End Role="Pet_Type" Type="Self.Pet_Type" Multiplicity="0..1" />
+          <End Role="Pet" Type="Self.Pet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pet_Type">
+              <PropertyRef Name="Pet_Type_ID" />
+            </Principal>
+            <Dependent Role="Pet">
+              <PropertyRef Name="Pet_Type_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sale_Line__Pet_I__173876EA">
+          <End Role="Pet" Type="Self.Pet" Multiplicity="1" />
+          <End Role="Sale_Line_Pet" Type="Self.Sale_Line_Pet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pet">
+              <PropertyRef Name="Pet_ID" />
+            </Principal>
+            <Dependent Role="Sale_Line_Pet">
+              <PropertyRef Name="Pet_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sale_Line__Sale___182C9B23">
+          <End Role="Sale_Pet" Type="Self.Sale_Pet" Multiplicity="1" />
+          <End Role="Sale_Line_Pet" Type="Self.Sale_Line_Pet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sale_Pet">
+              <PropertyRef Name="Sale_ID" />
+            </Principal>
+            <Dependent Role="Sale_Line_Pet">
+              <PropertyRef Name="Sale_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PetDBModelStoreContainer">
+          <EntitySet Name="Pet" EntityType="Self.Pet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pet_Type" EntityType="Self.Pet_Type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sale_Line_Pet" EntityType="Self.Sale_Line_Pet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sale_Pet" EntityType="Self.Sale_Pet" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Pet__Pet_Type_ID__1273C1CD" Association="Self.FK__Pet__Pet_Type_ID__1273C1CD">
+            <End Role="Pet_Type" EntitySet="Pet_Type" />
+            <End Role="Pet" EntitySet="Pet" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sale_Line__Pet_I__173876EA" Association="Self.FK__Sale_Line__Pet_I__173876EA">
+            <End Role="Pet" EntitySet="Pet" />
+            <End Role="Sale_Line_Pet" EntitySet="Sale_Line_Pet" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sale_Line__Sale___182C9B23" Association="Self.FK__Sale_Line__Sale___182C9B23">
+            <End Role="Sale_Pet" EntitySet="Sale_Pet" />
+            <End Role="Sale_Line_Pet" EntitySet="Sale_Line_Pet" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PetDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Pet">
+          <Key>
+            <PropertyRef Name="Pet_ID" />
+          </Key>
+          <Property Name="Pet_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Pet_Type_ID" Type="Int32" />
+          <Property Name="Pet_Price" Type="Double" />
+          <Property Name="Pet_Quantitiy" Type="Int32" />
+          <NavigationProperty Name="Pet_Type" Relationship="Self.FK__Pet__Pet_Type_ID__1273C1CD" FromRole="Pet" ToRole="Pet_Type" />
+          <NavigationProperty Name="Sale_Line_Pet" Relationship="Self.FK__Sale_Line__Pet_I__173876EA" FromRole="Pet" ToRole="Sale_Line_Pet" />
+        </EntityType>
+        <EntityType Name="Pet_Type">
+          <Key>
+            <PropertyRef Name="Pet_Type_ID" />
+          </Key>
+          <Property Name="Pet_Type_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Pet_Type1" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Pets" Relationship="Self.FK__Pet__Pet_Type_ID__1273C1CD" FromRole="Pet_Type" ToRole="Pet" />
+        </EntityType>
+        <EntityType Name="Sale_Line_Pet">
+          <Key>
+            <PropertyRef Name="Pet_ID" />
+            <PropertyRef Name="Sale_ID" />
+          </Key>
+          <Property Name="Pet_ID" Type="Int32" Nullable="false" />
+          <Property Name="Sale_ID" Type="Int32" Nullable="false" />
+          <Property Name="Pet_Sale_Q" Type="Int32" />
+          <NavigationProperty Name="Pet" Relationship="Self.FK__Sale_Line__Pet_I__173876EA" FromRole="Sale_Line_Pet" ToRole="Pet" />
+          <NavigationProperty Name="Sale_Pet" Relationship="Self.FK__Sale_Line__Sale___182C9B23" FromRole="Sale_Line_Pet" ToRole="Sale_Pet" />
+        </EntityType>
+        <EntityType Name="Sale_Pet">
+          <Key>
+            <PropertyRef Name="Sale_ID" />
+          </Key>
+          <Property Name="Sale_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Sale_Amount" Type="Double" />
+          <NavigationProperty Name="Sale_Line_Pet" Relationship="Self.FK__Sale_Line__Sale___182C9B23" FromRole="Sale_Pet" ToRole="Sale_Line_Pet" />
+        </EntityType>
+        <Association Name="FK__Pet__Pet_Type_ID__1273C1CD">
+          <End Role="Pet_Type" Type="Self.Pet_Type" Multiplicity="0..1" />
+          <End Role="Pet" Type="Self.Pet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pet_Type">
+              <PropertyRef Name="Pet_Type_ID" />
+            </Principal>
+            <Dependent Role="Pet">
+              <PropertyRef Name="Pet_Type_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sale_Line__Pet_I__173876EA">
+          <End Role="Pet" Type="Self.Pet" Multiplicity="1" />
+          <End Role="Sale_Line_Pet" Type="Self.Sale_Line_Pet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pet">
+              <PropertyRef Name="Pet_ID" />
+            </Principal>
+            <Dependent Role="Sale_Line_Pet">
+              <PropertyRef Name="Pet_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sale_Line__Sale___182C9B23">
+          <End Role="Sale_Pet" Type="Self.Sale_Pet" Multiplicity="1" />
+          <End Role="Sale_Line_Pet" Type="Self.Sale_Line_Pet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sale_Pet">
+              <PropertyRef Name="Sale_ID" />
+            </Principal>
+            <Dependent Role="Sale_Line_Pet">
+              <PropertyRef Name="Sale_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PetDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Pets" EntityType="Self.Pet" />
+          <EntitySet Name="Pet_Type" EntityType="Self.Pet_Type" />
+          <EntitySet Name="Sale_Line_Pet" EntityType="Self.Sale_Line_Pet" />
+          <EntitySet Name="Sale_Pet" EntityType="Self.Sale_Pet" />
+          <AssociationSet Name="FK__Pet__Pet_Type_ID__1273C1CD" Association="Self.FK__Pet__Pet_Type_ID__1273C1CD">
+            <End Role="Pet_Type" EntitySet="Pet_Type" />
+            <End Role="Pet" EntitySet="Pets" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sale_Line__Pet_I__173876EA" Association="Self.FK__Sale_Line__Pet_I__173876EA">
+            <End Role="Pet" EntitySet="Pets" />
+            <End Role="Sale_Line_Pet" EntitySet="Sale_Line_Pet" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sale_Line__Sale___182C9B23" Association="Self.FK__Sale_Line__Sale___182C9B23">
+            <End Role="Sale_Pet" EntitySet="Sale_Pet" />
+            <End Role="Sale_Line_Pet" EntitySet="Sale_Line_Pet" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PetDBModelStoreContainer" CdmEntityContainer="PetDBEntities">
+          <EntitySetMapping Name="Pets">
+            <EntityTypeMapping TypeName="PetDBModel.Pet">
+              <MappingFragment StoreEntitySet="Pet">
+                <ScalarProperty Name="Pet_ID" ColumnName="Pet_ID" />
+                <ScalarProperty Name="Pet_Type_ID" ColumnName="Pet_Type_ID" />
+                <ScalarProperty Name="Pet_Price" ColumnName="Pet_Price" />
+                <ScalarProperty Name="Pet_Quantitiy" ColumnName="Pet_Quantitiy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pet_Type">
+            <EntityTypeMapping TypeName="PetDBModel.Pet_Type">
+              <MappingFragment StoreEntitySet="Pet_Type">
+                <ScalarProperty Name="Pet_Type_ID" ColumnName="Pet_Type_ID" />
+                <ScalarProperty Name="Pet_Type1" ColumnName="Pet_Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sale_Line_Pet">
+            <EntityTypeMapping TypeName="PetDBModel.Sale_Line_Pet">
+              <MappingFragment StoreEntitySet="Sale_Line_Pet">
+                <ScalarProperty Name="Pet_ID" ColumnName="Pet_ID" />
+                <ScalarProperty Name="Sale_ID" ColumnName="Sale_ID" />
+                <ScalarProperty Name="Pet_Sale_Q" ColumnName="Pet_Sale_Q" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sale_Pet">
+            <EntityTypeMapping TypeName="PetDBModel.Sale_Pet">
+              <MappingFragment StoreEntitySet="Sale_Pet">
+                <ScalarProperty Name="Sale_ID" ColumnName="Sale_ID" />
+                <ScalarProperty Name="Sale_Amount" ColumnName="Sale_Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

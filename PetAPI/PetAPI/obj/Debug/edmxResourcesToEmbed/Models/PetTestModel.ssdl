@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PetDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Pet">
+    <Key>
+      <PropertyRef Name="Pet_ID" />
+    </Key>
+    <Property Name="Pet_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Pet_Type_ID" Type="int" />
+    <Property Name="Pet_Price" Type="float" />
+    <Property Name="Pet_Quantitiy" Type="int" />
+  </EntityType>
+  <EntityType Name="Pet_Type">
+    <Key>
+      <PropertyRef Name="Pet_Type_ID" />
+    </Key>
+    <Property Name="Pet_Type_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Pet_Type" Type="varchar" MaxLength="32" />
+  </EntityType>
+  <EntityType Name="Sale_Line_Pet">
+    <Key>
+      <PropertyRef Name="Pet_ID" />
+      <PropertyRef Name="Sale_ID" />
+    </Key>
+    <Property Name="Pet_ID" Type="int" Nullable="false" />
+    <Property Name="Sale_ID" Type="int" Nullable="false" />
+    <Property Name="Pet_Sale_Q" Type="int" />
+  </EntityType>
+  <EntityType Name="Sale_Pet">
+    <Key>
+      <PropertyRef Name="Sale_ID" />
+    </Key>
+    <Property Name="Sale_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Sale_Amount" Type="float" />
+  </EntityType>
+  <Association Name="FK__Pet__Pet_Type_ID__1273C1CD">
+    <End Role="Pet_Type" Type="Self.Pet_Type" Multiplicity="0..1" />
+    <End Role="Pet" Type="Self.Pet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pet_Type">
+        <PropertyRef Name="Pet_Type_ID" />
+      </Principal>
+      <Dependent Role="Pet">
+        <PropertyRef Name="Pet_Type_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Sale_Line__Pet_I__173876EA">
+    <End Role="Pet" Type="Self.Pet" Multiplicity="1" />
+    <End Role="Sale_Line_Pet" Type="Self.Sale_Line_Pet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pet">
+        <PropertyRef Name="Pet_ID" />
+      </Principal>
+      <Dependent Role="Sale_Line_Pet">
+        <PropertyRef Name="Pet_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Sale_Line__Sale___182C9B23">
+    <End Role="Sale_Pet" Type="Self.Sale_Pet" Multiplicity="1" />
+    <End Role="Sale_Line_Pet" Type="Self.Sale_Line_Pet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sale_Pet">
+        <PropertyRef Name="Sale_ID" />
+      </Principal>
+      <Dependent Role="Sale_Line_Pet">
+        <PropertyRef Name="Sale_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PetDBModelStoreContainer">
+    <EntitySet Name="Pet" EntityType="Self.Pet" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Pet_Type" EntityType="Self.Pet_Type" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Sale_Line_Pet" EntityType="Self.Sale_Line_Pet" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Sale_Pet" EntityType="Self.Sale_Pet" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Pet__Pet_Type_ID__1273C1CD" Association="Self.FK__Pet__Pet_Type_ID__1273C1CD">
+      <End Role="Pet_Type" EntitySet="Pet_Type" />
+      <End Role="Pet" EntitySet="Pet" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Sale_Line__Pet_I__173876EA" Association="Self.FK__Sale_Line__Pet_I__173876EA">
+      <End Role="Pet" EntitySet="Pet" />
+      <End Role="Sale_Line_Pet" EntitySet="Sale_Line_Pet" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Sale_Line__Sale___182C9B23" Association="Self.FK__Sale_Line__Sale___182C9B23">
+      <End Role="Sale_Pet" EntitySet="Sale_Pet" />
+      <End Role="Sale_Line_Pet" EntitySet="Sale_Line_Pet" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PetDBModelStoreContainer" CdmEntityContainer="PetDBEntities">
+    <EntitySetMapping Name="Pets">
+      <EntityTypeMapping TypeName="PetDBModel.Pet">
+        <MappingFragment StoreEntitySet="Pet">
+          <ScalarProperty Name="Pet_ID" ColumnName="Pet_ID" />
+          <ScalarProperty Name="Pet_Type_ID" ColumnName="Pet_Type_ID" />
+          <ScalarProperty Name="Pet_Price" ColumnName="Pet_Price" />
+          <ScalarProperty Name="Pet_Quantitiy" ColumnName="Pet_Quantitiy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pet_Type">
+      <EntityTypeMapping TypeName="PetDBModel.Pet_Type">
+        <MappingFragment StoreEntitySet="Pet_Type">
+          <ScalarProperty Name="Pet_Type_ID" ColumnName="Pet_Type_ID" />
+          <ScalarProperty Name="Pet_Type1" ColumnName="Pet_Type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sale_Line_Pet">
+      <EntityTypeMapping TypeName="PetDBModel.Sale_Line_Pet">
+        <MappingFragment StoreEntitySet="Sale_Line_Pet">
+          <ScalarProperty Name="Pet_ID" ColumnName="Pet_ID" />
+          <ScalarProperty Name="Sale_ID" ColumnName="Sale_ID" />
+          <ScalarProperty Name="Pet_Sale_Q" ColumnName="Pet_Sale_Q" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sale_Pet">
+      <EntityTypeMapping TypeName="PetDBModel.Sale_Pet">
+        <MappingFragment StoreEntitySet="Sale_Pet">
+          <ScalarProperty Name="Sale_ID" ColumnName="Sale_ID" />
+          <ScalarProperty Name="Sale_Amount" ColumnName="Sale_Amount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
